@@ -24,14 +24,18 @@ def summarize_diffs(path: str) -> str:
         diffs = list(staged_diff.iter_change_type(change_type))
         if len(diffs) > 0:
             result += f"{change_types[change_type]} files:\n"
-            if change_type == "M":
-                for diff in diffs:
+            for diff in diffs:
+                path = get_filename_from_path(diff.b_path)
+                if change_type == "M":
                     result += f"{diff.b_path}:\n {diff.diff.decode('utf-8')}\n"
-            else:
-                for diff in diffs:
+                else:
                     result += f"{diff.b_path}\n"
     result += "\n"
     return result
+
+
+def get_filename_from_path(path: str) -> str:
+    return path.split("/")[-1]
 
 
 def prompt(diff_summary: str) -> str:
