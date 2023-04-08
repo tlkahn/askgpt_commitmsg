@@ -1,7 +1,7 @@
 import git
 
 
-def summarize_diffs(path: str) -> str:
+def summarize_diffs(path: str, suffix: str) -> str:
     repo = git.Repo(path)
     index = repo.index
     result = ""
@@ -26,14 +26,22 @@ def summarize_diffs(path: str) -> str:
             result += f"{change_types[change_type]} files:\n"
             for diff in diffs:
                 path = get_filename_from_path(diff.b_path)
-                if change_type == "M":
-                    result += f"{diff.b_path}:\n {diff.diff.decode('utf-8')}\n"
+                filetype = get_filetype_from_path(diff.b_path)
+                if filetype == suffix:
+                    if change_type == "M":
+                        result += f"{diff.b_path}:\n {diff.diff.decode('utf-8')}\n"
+                    else:
+                        result += f"{diff.b_path}\n"
     result += "\n"
     return result
 
 
 def get_filename_from_path(path: str) -> str:
     return path.split("/")[-1]
+
+
+def get_filetype_from_path(path: str) -> str:
+    return path.split(".")[-1]
 
 
 def prompt(diff_summary: str) -> str:
