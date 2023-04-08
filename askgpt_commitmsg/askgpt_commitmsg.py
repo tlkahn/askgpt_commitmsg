@@ -35,4 +35,4 @@ def summarize_diffs(path: str) -> str:
 
 
 def prompt(diff_summary: str) -> str:
-    return f"Write short git commit messages based on given git diff, which are: \n{diff_summary}\n\nWrite a git commit message title (fewer than 50 characters)."
+    return f"Write short git commit messages based on given git diff, which are: \n{diff_summary}"
