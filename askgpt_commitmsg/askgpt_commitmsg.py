@@ -28,8 +28,6 @@ def summarize_diffs(path: str) -> str:
                 path = get_filename_from_path(diff.b_path)
                 if change_type == "M":
                     result += f"{diff.b_path}:\n {diff.diff.decode('utf-8')}\n"
-                else:
-                    result += f"{diff.b_path}\n"
     result += "\n"
     return result
 
