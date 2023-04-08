@@ -45,4 +45,4 @@ def get_filetype_from_path(path: str) -> str:
 
 
 def prompt(diff_summary: str) -> str:
-    return f"Based on the given git diff, which are: \n{diff_summary}, write the commit message title with less than 50 words; followed by listing major changes by the commit, with each line less than 72 characters. Only show the text of the title and body"
+    return f"Based on the given git diff, which are: \n{diff_summary}, summarize the commit message with less than 50 words; then list major changes by the commit, with each line less than 72 characters"
