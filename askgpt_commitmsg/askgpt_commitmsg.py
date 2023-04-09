@@ -25,7 +25,6 @@ def summarize_diffs(path: str, suffix: str) -> str:
         if len(diffs) > 0:
             result += f"{change_types[change_type]} files:\n"
             for diff in diffs:
-                path = get_filename_from_path(diff.b_path)
                 filetype = get_filetype_from_path(diff.b_path)
                 if filetype == suffix:
                     if change_type == "M":
@@ -34,10 +33,6 @@ def summarize_diffs(path: str, suffix: str) -> str:
                         result += f"{diff.b_path}\n"
     result += "\n"
     return result
-
-
-def get_filename_from_path(path: str) -> str:
-    return path.split("/")[-1]
 
 
 def get_filetype_from_path(path: str) -> str:
