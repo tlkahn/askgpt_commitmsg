@@ -25,8 +25,7 @@ def summarize_diffs(path: str, suffix: str) -> str:
         if len(diffs) > 0:
             result += f"{change_types[change_type]} files:\n"
             for diff in diffs:
-                filetype = get_filetype_from_path(diff.b_path)
-                if filetype == suffix:
+                if diff.b_path and diff.b_path.endswith(suffix):
                     if change_type == "M":
                         result += f"{diff.b_path}:\n {diff.diff.decode('utf-8')}\n"
                     else:
@@ -40,4 +39,4 @@ def get_filetype_from_path(path: str) -> str:
 
 
 def prompt(diff_summary: str) -> str:
-    return f"Write the commit message title (fewer than 50 characters) for the git diff: \n\n{diff_summary}; list major changes by the commit, with each line less than 72 characters."
+    return f"Based on the given git diff, which are: \n{diff_summary}, summarize the commit message with less than 50 words; then list major changes by the commit, with each line less than 72 characters. Please provide only text with no titles or headers"
